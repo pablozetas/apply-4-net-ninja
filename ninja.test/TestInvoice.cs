@@ -73,7 +73,23 @@ namespace ninja.test {
 
             #region Escribir el código dentro de este bloque
 
-            throw new NotImplementedException();
+            InvoiceManager manager = new InvoiceManager();
+
+            if (!manager.Exists(4))
+            {
+                Invoice invoice = new Invoice()
+                {
+                    Id = 4,
+                    Type = Invoice.Types.A.ToString()
+                };
+                manager.Insert(invoice);
+            }
+
+            Assert.IsTrue(manager.Exists(4));
+
+            manager.Delete(4);
+
+            Assert.IsFalse(manager.Exists(4));
 
             #endregion Escribir el código dentro de este bloque
 

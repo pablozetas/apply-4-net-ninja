@@ -49,6 +49,12 @@ namespace ninja.model.Manager {
 
         }
 
+        /// <summary>
+        /// Updates the detail.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="detail">The detail.</param>
+        /// <exception cref="Exception">The invoice doesn't exists (id {id}).</exception>
         public void UpdateDetail(long id, IList<InvoiceDetail> detail) {
 
             /*
@@ -58,10 +64,32 @@ namespace ninja.model.Manager {
 
             #region Escribir el código dentro de este bloque
 
-            throw new NotImplementedException();
+            if (this.Exists(id))
+            {
+                Invoice _invoice = GetById(id);
+                _invoice.DeleteDetails();
+                detail.ToList().ForEach(x =>
+                {
+                    _invoice.AddDetail(x);
+                });
+            }
+            else
+            {
+                throw new Exception($"The invoice doesn't exists (id {id}).");
+            }
 
             #endregion Escribir el código dentro de este bloque
 
+        }
+
+        /// <summary>
+        /// Updates the specified model.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        public void Update(Invoice model)
+        {
+            Invoice _invoice = GetById(model.Id);
+            _invoice.Update(model);
         }
 
     }

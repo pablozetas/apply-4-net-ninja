@@ -1,0 +1,40 @@
+﻿@model ninja.Models.InvoiceViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<nav aria-label="breadcrumb" class="mt-2">
+    <ol class="breadcrumb ml-auto">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="@Url.Action("Index", "Invoice")">Invoices</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.InvoiceDescription</li>
+    </ol>
+</nav>
+
+
+<div>
+    <h4>Invoice</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalInvoice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TotalInvoice)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("New", "New") |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,8 +1,10 @@
 ﻿@model ninja.Models.InvoiceViewModel
 
+
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
 <nav aria-label="breadcrumb" class="mt-2">
@@ -14,6 +16,13 @@
     </ol>
 </nav>
 
+
+<p>
+    <div>
+        @Html.ActionLink("Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-secondary" })
+    </div>
+</p>
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -21,66 +30,29 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Id)
 
+    <input type="hidden" name="detailsCount" id="detailsCount" value="@Model.Details.Count" />
+
     <div class="bg-light pt-4">
-        <div class="form-row">
-            <div class="form-group col-md-3">
-                @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-12" })
-                <div class="col-md-12">
-                    @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control", @autofocus="autofocus", @autocomplete="off" } })
-                    @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group col-md-3">
-                @Html.LabelFor(model => model.PointOfSaleNumber, htmlAttributes: new { @class = "control-label col-md-12" })
-                <div class="col-md-12">
-                    @Html.EditorFor(model => model.PointOfSaleNumber, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.PointOfSaleNumber, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group col-md-3">
-                @Html.LabelFor(model => model.InvoiceNumber, htmlAttributes: new { @class = "control-label col-md-12" })
-                <div class="col-md-12">
-                    @Html.EditorFor(model => model.InvoiceNumber, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.InvoiceNumber, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group col-md-3">
-                @Html.LabelFor(model => model.InvoiceDate, htmlAttributes: new { @class = "control-label col-md-12" })
-                <div class="col-md-12">
-                    @Html.EditorFor(model => model.InvoiceDate, new { htmlAttributes = new { @class = "form-control dateinput" } })
-                    @Html.ValidationMessageFor(model => model.InvoiceDate, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-12">
-                @Html.LabelFor(model => model.Customer, htmlAttributes: new { @class = "control-label col-md-12" })
-                <div class="col-md-12">
-                    @Html.EditorFor(model => model.Customer, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Customer, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
+        @Html.Partial("_EditHead", Model)
+
         <hr />
 
-        <div class="form-row pt-4 pb-4">
-            
-        </div>
+        @Html.Partial("_EditDetails", Model)
+
         <hr />
     </div>
-    
+
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-succes" />
+            <input type="submit" value="Save" class="btn btn-success" />
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+

@@ -1,0 +1,38 @@
+﻿@model ninja.Models.InvoiceViewModel
+
+
+<div class="form-row">
+    <div class="form-group col-md-1">
+        <label class="control-label col-md-12 text-right mb-0 pb-0" for="Type">#</label>
+    </div>
+
+    <div class="form-group col-md-4 mb-0 pb-0">
+        <label class="control-label col-md-12" for="Type">Description</label>
+    </div>
+    <div class="form-group col-md-2 mb-0 pb-0">
+        <label class="control-label col-md-12" for="Type">Amount</label>
+    </div>
+    <div class="form-group col-md-2 mb-0 pb-0">
+        <label class="control-label col-md-12" for="Type">Unit price</label>
+    </div>
+    <div class="form-group col-md-1 mb-0 pb-0">
+        <label class="control-label col-md-12" for="Type">Taxes</label>
+    </div>
+    <div class="form-group col-md-2 mb-0 pb-0">
+        <label class="control-label col-md-12" for="Type">Total</label>
+    </div>
+</div>
+
+<div id="invoicerows">
+    @foreach (var item in Model.Details)
+    {
+        ViewBag.CurrentItemID = Model.Details.IndexOf(item);
+
+        @Html.Partial("~/Views/Invoice/DetaiInvoicelRow.cshtml", item)
+    }
+</div>
+<div class="form-row">
+    <div class="form-group col-md-4">
+        <a class="btn btn-primary ml-3 text-white" onclick="addDetail()">Add detail</a>
+    </div>
+</div>

@@ -7,3 +7,61 @@
         <li class="breadcrumb-item active"><a href="/">Home</a></li>
     </ol>
 </nav>
+
+<div class="content animate-panel">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Sales by Invoice Type</h5>
+                </div>
+                <div class="card-body">
+
+                    <div>
+                        <div id="pie-chart" class="ct-perfect-fourth"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/chartist/js")
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                debugger;
+                
+                var data = {
+                    series: JSON.parse('@Html.Raw(ViewBag.DataChart)'),
+                    labels: JSON.parse('@Html.Raw(ViewBag.LabelsChart)')
+                };
+                var options = {
+                    labelInterpolationFnc: function(value) {
+                    return value[0]
+                    }
+                };
+
+                var responsiveOptions = [
+                    ['screen and (min-width: 640px)', {
+                    chartPadding: 0,
+                    labelOffset: 0,
+                    labelDirection: 'explode',
+                    labelInterpolationFnc: function(value) {
+                        return value;
+                    }
+                    }],
+                    ['screen and (min-width: 1024px)', {
+                    labelOffset: 0,
+                    chartPadding: 20
+                    }]
+                ];
+
+                new Chartist.Pie('#pie-chart', data, options, responsiveOptions);
+
+            })
+
+        </script>
+    }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ninja.model.Validation;
+using ninja.model.Validation.InvoiceValidations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -27,9 +29,34 @@ namespace ninja.model.Entity
 
         /// <summary>
         /// Numero de factura
-        /// </summary>
-      
+        /// </summary>      
         public long Id { get; set; }
+
+        /// <summary>
+        /// Does the validate.
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        internal void DoValidate()
+        {
+            AbstractValidationHandler invoiceValidationType = new InvoiceValidationType() { PropertyName = "Type", PropertyValue = this.Type };
+            AbstractValidationHandler invoiceValidationPOS = new InvoiceValidationPointOfSale() { PropertyName = "PointOfSale", PropertyValue = this.PointOfSale };
+            AbstractValidationHandler invoiceValiationNumber = new InvoiceValidationNumber() { PropertyName = "Number", PropertyValue = this.Number };
+            AbstractValidationHandler invoiceValidationDate = new InvoiceValidationDate() { PropertyName = "Date", PropertyValue = this.Date };
+            AbstractValidationHandler invoiceValidationDetail = new InvoiceValidationDetails() { PropertyName = "Detail", PropertyValue = this.Detail.Count };
+
+            invoiceValidationType
+                .SetNext(invoiceValidationPOS)
+                .SetNext(invoiceValiationNumber)
+                .SetNext(invoiceValidationDate)
+                .SetNext(invoiceValidationDetail);
+
+            ValidationChain.ExecuteValidationChain(invoiceValidationType);
+
+            foreach(InvoiceDetail detail in Detail)
+            {
+                detail.Validate();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the type.

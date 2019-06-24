@@ -14,6 +14,13 @@ namespace ninja.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="InvoiceDetailViewModel"/> class.
         /// </summary>
+        public InvoiceDetailViewModel()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InvoiceDetailViewModel"/> class.
+        /// </summary>
         /// <param name="invoiceDetail">The invoice detail.</param>
         public InvoiceDetailViewModel(InvoiceDetail invoiceDetail)
         {
@@ -22,9 +29,9 @@ namespace ninja.Models
             this.Description = invoiceDetail.Description;
             this.Amount = invoiceDetail.Amount;
             this.UnitPrice = invoiceDetail.UnitPrice;
-            this.TotalPrice = invoiceDetail.TotalPrice;
+            //this.TotalPrice = invoiceDetail.TotalPrice;
             this.Taxes = invoiceDetail.Taxes;
-            this.GrandTotal = invoiceDetail.TotalPriceWithTaxes;
+            //this.GrandTotal = invoiceDetail.TotalPriceWithTaxes;
         }
 
         /// <summary>
@@ -89,7 +96,7 @@ namespace ninja.Models
         /// <value>
         /// The total price.
         /// </value>
-        public double TotalPrice { get; set; }
+        public double TotalPrice => Amount * UnitPrice;
 
         /// <summary>
         /// Gets or sets the taxes.
@@ -100,11 +107,19 @@ namespace ninja.Models
         public double Taxes { get; set; }
 
         /// <summary>
+        /// Gets or sets the taxes percent.
+        /// </summary>
+        /// <value>
+        /// The taxes percent.
+        /// </value>
+        public double TaxesPercent => ((this.Taxes - 1) * 100);
+
+        /// <summary>
         /// Gets or sets the grand total.
         /// </summary>
         /// <value>
         /// The grand total.
         /// </value>
-        public double GrandTotal { get; set; }
+        public double GrandTotal => this.TotalPrice * this.Taxes;
     }
 }

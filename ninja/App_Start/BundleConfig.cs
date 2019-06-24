@@ -30,6 +30,19 @@ namespace ninja {
 
             bundles.Add(new ScriptBundle("~/bundles/applicationUtils")
                 .Include("~/Scripts/applicationUtils.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/bootstable")
+                .Include("~/Scripts/bootstable.js"));
+
+            bundles.Add(new StyleBundle("~/bundles/chartist/css")
+                .Include("~/Components/chartist/custom/chartist.css"));
+            
+            bundles.Add(new ScriptBundle("~/bundles/chartist/js")
+                .Include("~/Components/chartist/dist/chartist.min.js"));
+
+            bundles.Add(new StyleBundle("~/Content/logincss")
+                .Include("~/Content/login.css"));
+
         }
     }
 }

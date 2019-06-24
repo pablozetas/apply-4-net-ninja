@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ninja.Binders;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +17,15 @@ namespace ninja
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            RegisterBinders();
+        }
+
+        /// <summary>
+        /// Registers the custom application model binders.
+        /// </summary>
+        private void RegisterBinders()
+        {
+            ModelBinders.Binders.Add(typeof(System.DateTime), new DateTimeModelBinder());
         }
     }
 }

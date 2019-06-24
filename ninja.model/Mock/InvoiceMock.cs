@@ -44,10 +44,25 @@ namespace ninja.model.Mock {
                 Type = Invoice.Types.A.ToString()
             });
 
-            this._db.Add(new Invoice() {
+            Invoice invoiceB = new Invoice()
+            {
                 Id = 1002,
-                Type = Invoice.Types.B.ToString()
+                Type = Invoice.Types.B.ToString(),
+                CustomerName = "Máximo Luca",
+                Date = DateTime.Now,
+                Number = 1000,
+                PointOfSale = 1                
+            };
+            invoiceB.AddDetail(new InvoiceDetail
+            {
+                Amount = 10,
+                Description = "Venta genérica",
+                Id = 1,
+                InvoiceId = 1002,
+                UnitPrice = 895.60
             });
+
+            this._db.Add(invoiceB);
 
             Invoice invoice3 = new Invoice() {
                 Id = 1003, Type = Invoice.Types.A.ToString()

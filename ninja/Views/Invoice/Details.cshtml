@@ -13,28 +13,106 @@
     </ol>
 </nav>
 
-
-<div>
-    <h4>Invoice</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TotalInvoice)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TotalInvoice)
-        </dd>
-    </dl>
-</div>
 <p>
-    @Html.ActionLink("New", "New") |
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    <div>
+        @Html.ActionLink("Create New", "New", null, htmlAttributes: new { @class = "btn btn-primary" })
+        @Html.ActionLink("Update", "Update", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-secondary" })
+        @Html.ActionLink("Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-secondary" })
+    </div>
+
 </p>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            Invoice
+            <strong>@Model.InvoiceDate.ToString("dd/MM/yyyy")</strong>
+            <span class="float-right"> <strong>Status:</strong> Pending</span>
+
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-sm-6">
+                    <h6 class="mb-3">From:</h6>
+                    <div>
+                        <strong>Cliente SA</strong>
+                    </div>
+                    <div>Fake Street 8</div>
+                    <div>0000 CABA, Argentina</div>
+                    <div>Email: info@clientesa.com</div>
+                    <div>Phone: +54 9 11 0000-1111</div>
+                </div>
+
+                <div class="col-sm-6">
+                    <h6 class="mb-3">To:</h6>
+                    <div>
+                        <strong>@Model.Customer</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive-sm">
+                <table class="table table-striped no-format">
+                    <thead>
+                        <tr>
+                            <th class="center">#</th>
+                            <th>Description</th>
+                            <th class="text-right">Amount</th>
+                            <th class="text-right">Unit price</th>
+                            <th class="text-right">Taxes</th>
+                            <th class="text-right">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Details)
+                        {
+                            <tr>
+                                <td class="center">@item.Id</td>
+                                <td class="text-left strong">@item.Description</td>
+                                <td class="text-right">@item.Amount</td>
+                                <td class="text-right">@item.UnitPrice.ToCurrencyString()</td>
+                                <td class="text-right">@item.TaxesPercent.ToPercentageString() </td>
+                                <td class="text-right">@item.TotalPrice.ToCurrencyString()</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-sm-5">
+
+                </div>
+
+                <div class="col-lg-4 col-sm-5 ml-auto">
+                    <table class="table table-striped no-format">
+                        <tbody>
+                            <tr>
+                                <td class="text-left">
+                                    <strong class="h6">Subtotal</strong>
+                                </td>
+                                <td class="text-right">@Model.SubTotal.ToCurrencyString()</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">
+                                    <strong class="h6">Taxes (@Model.Taxes)</strong>
+                                </td>
+                                <td class="text-right">@Model.TotalTaxes.ToCurrencyString()</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">
+                                    <strong class="h5">Total</strong>
+                                </td>
+                                <td class="text-right">
+                                    <strong class="h5">@Model.TotalInvoice.ToCurrencyString()</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

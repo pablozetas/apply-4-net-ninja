@@ -16,11 +16,30 @@ namespace ninja.test {
         public void InsertNewInvoice() {
 
             InvoiceManager manager = new InvoiceManager();
+            
             long id = 1006;
             Invoice invoice = new Invoice() {
                 Id = id,
-                Type = Invoice.Types.A.ToString()
+                Type = Invoice.Types.A.ToString(),
+
+                #region "Por los cambios en el modelo"
+                CustomerName = "Juan",
+                PointOfSale = 1,
+                Number = 1,
+                Date = DateTime.Now               
+                #endregion
             };
+
+            #region "Por los cambios en el modelo"
+            invoice.AddDetail(new InvoiceDetail
+            {
+                Amount = 1,
+                Description = "Venta genérica",
+                Id = 1,
+                InvoiceId = id,
+                UnitPrice = 100,
+            });
+            #endregion
 
             manager.Insert(invoice);
             Invoice result = manager.GetById(id);
@@ -36,7 +55,13 @@ namespace ninja.test {
             long id = 1006;
             Invoice invoice = new Invoice() {
                 Id = id,
-                Type = Invoice.Types.A.ToString()
+                Type = Invoice.Types.A.ToString(),
+                #region "Por los cambios en el modelo"
+                CustomerName = "Juan",
+                PointOfSale = 1,
+                Number = 1,
+                Date = DateTime.Now
+                #endregion
             };
 
             invoice.AddDetail(new InvoiceDetail() {
@@ -80,8 +105,24 @@ namespace ninja.test {
                 Invoice invoice = new Invoice()
                 {
                     Id = 4,
-                    Type = Invoice.Types.A.ToString()
+                    Type = Invoice.Types.A.ToString(),
+                    #region "Por los cambios en el modelo"
+                    CustomerName = "Juan",
+                    PointOfSale = 1,
+                    Number = 1,
+                    Date = DateTime.Now
+                    #endregion
                 };
+                #region "Por los cambios en el modelo"
+                invoice.AddDetail(new InvoiceDetail
+                {
+                    Amount = 1,
+                    Description = "Venta genérica",
+                    Id = 1,
+                    InvoiceId = 4,
+                    UnitPrice = 100,
+                });
+                #endregion
                 manager.Insert(invoice);
             }
 

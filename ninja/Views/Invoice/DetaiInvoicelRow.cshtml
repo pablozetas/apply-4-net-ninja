@@ -1,0 +1,54 @@
+﻿@model ninja.Models.InvoiceDetailViewModel
+
+@{ 
+    int currentId = ViewBag.CurrentItemID;
+    Layout = null;
+}
+
+
+    <div class="form-row col-md-12" id="row_@currentId">
+        <input type="hidden" id="Details_@currentId.ToString()__Id" value="@Model.Id" name="Details[@currentId.ToString()].Id" />
+        <input type="hidden" id="Details_@currentId.ToString()__InvoiceId" value="@Model.InvoiceId" name="Details[@currentId.ToString()].InvoiceId" />
+
+
+        <div class="form-group col-md-1">
+            <strong class="text-right d-block pr-3">@currentId</strong>
+        </div>
+
+        <div class="form-group col-md-4">
+            <input class="form-control text-box single-line valid"
+                   id="Details_@currentId.ToString()__Description"
+                   name="Details[@currentId.ToString()].Description"
+                   type="text" value="Venta varias"
+                   aria-invalid="false">
+        </div>
+        <div class="form-group col-md-2">
+            <input class="form-control text-box single-line text-right"
+                   id="Details_@currentId.ToString()__Amount"
+                   name="Details[@currentId.ToString()].Amount"
+                   type="number" value="@Model.Amount" aria-invalid="false"
+                   onchange="updateRow(@currentId)">
+        </div>
+        <div class="form-group col-md-2">
+            <input class="form-control text-box single-line text-right"
+                   id="Details_@currentId.ToString()__UnitPrice"
+                   name="Details[@currentId.ToString()].UnitPrice"
+                   type="number" value="@Model.UnitPrice" aria-invalid="false"
+                   onchange="updateRow(@currentId)">
+        </div>
+        <div class="form-group col-md-1">
+            <input class="form-control text-box single-line valid text-right"
+                   id="Details_@currentId.ToString()__Taxes"
+                   name="Details[@currentId.ToString()].Taxes"
+                   type="number" value="@Model.Taxes" aria-invalid="false"
+                   readonly="readonly">
+        </div>
+        <div class="form-group col-md-2">
+            <input class="form-control text-box single-line valid text-right"
+                   id="Details_@currentId.ToString()__TotalPrice"
+                   name="Details[@currentId.ToString()].TotalPrice"
+                   type="number" value="@Model.Amount" aria-invalid="false"
+                   readonly="readonly">
+        </div>
+    </div>
+

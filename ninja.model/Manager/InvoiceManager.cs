@@ -32,8 +32,8 @@ namespace ninja.model.Manager {
 
         public void Insert(Invoice item) {
 
+            item.DoValidate();
             this._mock.Insert(item);
-
         }
 
         public void Delete(long id) {

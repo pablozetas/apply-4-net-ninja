@@ -52,7 +52,7 @@ namespace ninja.test {
         public void InsertNewDetailInvoice() {
 
             InvoiceManager manager = new InvoiceManager();
-            long id = 1006;
+            long id = 10006;
             Invoice invoice = new Invoice() {
                 Id = id,
                 Type = Invoice.Types.A.ToString(),
